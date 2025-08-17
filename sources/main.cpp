@@ -79,7 +79,7 @@ int main() {
                 knight.undoMovement();
             }
             if (CheckCollisionRecs(goblin.getCollisionRectangle(),prop.getCollisionRectangle(goblin.getWorldPos()))) {
-                knight.undoMovement();
+                goblin.undoMovement();
             }
         }
 
@@ -98,9 +98,9 @@ int main() {
             prop.render(knight.getWorldPos());
         }
 
-        knight.drawKnight();
+        knight.draw();
 
-        goblin.drawGoblin();
+        goblin.draw();
 
 
 
