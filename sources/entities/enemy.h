@@ -18,8 +18,12 @@ public:
 
     void tick(float deltaTime) override;
 
+    void setTarget(BaseCharacter* knightTarget) { target = knightTarget;}
+
 
 private:
+
+    BaseCharacter *target{};
 
 };
 

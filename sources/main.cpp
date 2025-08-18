@@ -40,7 +40,7 @@ int main() {
     };
 
     // enemy
-    Enemy goblin({0.0f, 0.0f},
+    Enemy goblin({300.0f, 300.0f},
         LoadTexture("../assets/characters/goblin_idle_spritesheet.png"),
         LoadTexture("../assets/characters/goblin_run_spritesheet.png"));
 
@@ -50,7 +50,7 @@ int main() {
     SetTargetFPS(60);
     while (!WindowShouldClose()) {
         /*************************
-         * SET UP SECTION
+         * SET UP / INPUT SECTION
          * ***********************/
         // seconds  per frame
         const float dT = GetFrameTime();
@@ -61,6 +61,7 @@ int main() {
         /************************
          * UPDATE SECTION
          * **********************/
+        goblin.setTarget(&knight);
 
         knight.tick(dT);
         goblin.tick(dT);

@@ -3,6 +3,7 @@
 //
 
 #include "enemy.h"
+#include "raymath.h"
 
 Enemy::Enemy() = default;
 
@@ -25,7 +26,10 @@ Enemy::~Enemy() {
 
 
 void Enemy::tick(const float deltaTime) {
-    // call base class function only (for now)
+    // target value must be set before calling Enemy::tick()
+    screenPos = Vector2Subtract(worldPos, target->getWorldPos());
+    // call base class function
     BaseCharacter::tick(deltaTime);
+
 }
 
