@@ -24,6 +24,8 @@ class BaseCharacter {
 
     virtual void tick(float deltaTime);
 
+    [[nodiscard]] Vector2 getScreenPos() const { return screenPos; }
+
 protected:
     Texture2D idle {};
 
@@ -47,7 +49,7 @@ protected:
 
     const float updateTime {1.0f/12.0f};
 
-    const float speed {4.0f};
+    float speed {4.0f};
 
     float scale {4.0f};
 
