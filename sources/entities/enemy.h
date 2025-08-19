@@ -20,6 +20,8 @@ public:
 
     void setTarget(BaseCharacter* knightTarget) { target = knightTarget;}
 
+    [[nodiscard]] Vector2 getScreenPos() override;
+
 
 private:
 

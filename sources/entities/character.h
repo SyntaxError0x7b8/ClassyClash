@@ -17,11 +17,13 @@ public:
 
     void tick(float deltaTime) override;
 
-
+    [[nodiscard]] Vector2 getScreenPos() override;
 
 
 
 private:
+    int winWidth {};
+    int winHeight {};
 
 };
 

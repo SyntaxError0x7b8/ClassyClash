@@ -16,17 +16,17 @@ void BaseCharacter::undoMovement() {
     worldPos = worldPosLastFrame;
 }
 
-Rectangle BaseCharacter::getCollisionRectangle() const {
+Rectangle BaseCharacter::getCollisionRectangle() {
     constexpr float padding = 10.0f;
     return Rectangle{
-        screenPos.x + padding,
-        screenPos.y + padding,
+        getScreenPos().x + padding,
+        getScreenPos().y + padding,
         (static_cast<float>(texture.width) / static_cast<float>(maxFrames) * scale) - padding,
         (static_cast<float>(texture.height) * scale) - padding,
     };
 }
 
-void BaseCharacter::draw() const {
+void BaseCharacter::draw() {
     const Rectangle source {
         (static_cast<float>(frame) * width),
         0.0f,
@@ -34,8 +34,8 @@ void BaseCharacter::draw() const {
         height
     };
     const Rectangle dest {
-        screenPos.x,
-        screenPos.y,
+        getScreenPos().x,
+        getScreenPos().y,
         scale * width,
         scale * height
     };
@@ -45,6 +45,21 @@ void BaseCharacter::draw() const {
 void BaseCharacter::tick(const float deltaTime) {
     // enable undo movement
     worldPosLastFrame = worldPos;
+
+    // handle common movement functionality
+    if (Vector2Length(velocity) != 0.0f) { // beware of float comparison
+        // select animation sprite when moving
+        texture = run;
+        // set worldPos = worlPos + direction (change character pos in world map)
+        velocity = Vector2Scale(Vector2Normalize(velocity), speed);
+        worldPos = Vector2Add(worldPos, velocity);
+        rightLeft = (velocity.x < 0.0f) ? -1.0f : 1.0f;
+    }
+    else {
+        // sprite is knightIdle
+        texture = idle;
+    }
+    velocity = {};
 
     // update animation frame
     runningTime += deltaTime;

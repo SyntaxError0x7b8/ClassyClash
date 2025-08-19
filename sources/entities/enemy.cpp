@@ -28,20 +28,17 @@ Enemy::~Enemy() {
 
 void Enemy::tick(const float deltaTime) {
     // get toTarget i.e. knight's location Target = Knight - Enemy
-    Vector2 toTarget = Vector2Subtract(target->getScreenPos(), screenPos);
-    // normalise vector to target
-    Vector2 direction = Vector2Normalize(toTarget);
-    // multiply normalised vector by the enemy's speed
-    direction = Vector2Scale(direction, speed);
-    // move enemy in the target's direction (i.e. set worldPos)
-    worldPos = Vector2Add(worldPos, direction);
-    // target value must be set before calling Enemy::tick()
-    screenPos = Vector2Subtract(worldPos, target->getWorldPos());
+    velocity = Vector2Subtract(target->getScreenPos(), getScreenPos());
 
     // call base class function
     BaseCharacter::tick(deltaTime);
 
 
 
+
+}
+
+Vector2 Enemy::getScreenPos() {
+    return Vector2Subtract(worldPos, target->getWorldPos());
 }
 

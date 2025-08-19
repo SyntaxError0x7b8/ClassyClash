@@ -18,13 +18,13 @@ class BaseCharacter {
 
     void undoMovement(); // perfect example of function to be replaced by "Command" design pattern
 
-    [[nodiscard]] Rectangle getCollisionRectangle() const;
+    [[nodiscard]] Rectangle getCollisionRectangle();
 
-    virtual void draw() const;
+    virtual void draw();
 
     virtual void tick(float deltaTime);
 
-    [[nodiscard]] Vector2 getScreenPos() const { return screenPos; }
+    virtual Vector2 getScreenPos() = 0; // it makes BaseCharacter an Abstract Class; i.e. no instances.
 
 protected:
     Texture2D idle {};
@@ -33,7 +33,6 @@ protected:
 
     Texture2D texture {};
 
-    Vector2 screenPos {};
 
     Vector2 worldPos {};
 
@@ -58,6 +57,9 @@ protected:
     float height {};
 
     Vector2 worldPosLastFrame {};
+
+    Vector2 velocity {};
+
 };
 
 
