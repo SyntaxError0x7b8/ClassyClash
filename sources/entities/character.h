@@ -19,12 +19,16 @@ public:
 
     [[nodiscard]] Vector2 getScreenPos() override;
 
-
+    void drawSword();
 
 private:
     int winWidth {};
+
     int winHeight {};
 
+    Texture2D weapon{LoadTexture("../assets/characters/weapon_sword.png")};
+
+    Rectangle weaponCollisionRect{};
 };
 
 

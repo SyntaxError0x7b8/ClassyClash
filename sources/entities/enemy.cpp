@@ -31,7 +31,7 @@ void Enemy::tick(const float deltaTime) {
     velocity = Vector2Subtract(target->getScreenPos(), getScreenPos());
 
     // call base class function
-    BaseCharacter::tick(deltaTime);
+    //BaseCharacter::tick(deltaTime); //disabled while testing character
 
 
 

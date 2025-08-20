@@ -100,6 +100,7 @@ int main() {
         }
 
         knight.draw();
+        knight.drawSword();
 
         goblin.draw();
 

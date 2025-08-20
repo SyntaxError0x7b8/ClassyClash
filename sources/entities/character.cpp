@@ -43,3 +43,44 @@ Vector2 Character::getScreenPos() {
 
 }
 
+void Character::drawSword() {
+    Vector2 origin{};
+    Vector2 offsetSword{};
+    float rotation {};
+    if (rightLeft > 0.0f) {
+        origin = {0.0f, static_cast<float>(weapon.height) * scale};
+        offsetSword = {40.0f, 50.0f}; // trial and error
+        rotation = 35.0f;
+        weaponCollisionRect = {
+            getScreenPos().x + offsetSword.x,
+            getScreenPos().y + offsetSword.y - static_cast<float>(weapon.height) * scale,
+            static_cast<float>(weapon.width) * scale,
+            static_cast<float>(weapon.height) * scale
+        };
+    }
+    else {
+        origin = {static_cast<float>(weapon.width) * scale, static_cast<float>(weapon.height) * scale};
+        offsetSword = {25.0f, 50.0f}; // trial and error
+        rotation = -35.0f;
+        weaponCollisionRect = {
+            getScreenPos().x + offsetSword.x - static_cast<float>(weapon.width) * scale,
+            getScreenPos().y + offsetSword.y - static_cast<float>(weapon.height) * scale,
+            static_cast<float>(weapon.width) * scale,
+            static_cast<float>(weapon.height) * scale
+        };
+    }
+    const Rectangle source {0.0f, 0.0f,
+                    static_cast<float>(weapon.width) * rightLeft, static_cast<float>(height)};
+    const Rectangle dest {getScreenPos().x + offsetSword.x, getScreenPos().y + offsetSword.y,
+                    scale * static_cast<float>(weapon.width), scale * static_cast<float>(weapon.height)};
+    DrawTexturePro(weapon, source, dest, origin,rotation, WHITE);
+
+    // debug weapon collision rectangle
+    DrawRectangleLines(
+                    weaponCollisionRect.x,
+                    weaponCollisionRect.y,
+                    weaponCollisionRect.width,
+                    weaponCollisionRect.height
+                    , RED);
+}
+
