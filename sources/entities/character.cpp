@@ -25,11 +25,17 @@ Character::~Character() {
 
 
 void Character::tick(const float deltaTime) {
+    if (!getAlive()) { return;}
     // movement direction
     if (IsKeyDown(KEY_A)) { velocity.x--; }
     if (IsKeyDown(KEY_D)) { velocity.x++; }
     if (IsKeyDown(KEY_S)) { velocity.y++; }
     if (IsKeyDown(KEY_W)) { velocity.y--; }
+
+    // reset attach
+    setAttack(false);
+    // check if attack in progress
+    setAttack(IsMouseButtonDown(MOUSE_BUTTON_LEFT));
 
     // call base class function after velocity is updated
     BaseCharacter::tick(deltaTime);
@@ -44,13 +50,14 @@ Vector2 Character::getScreenPos() {
 }
 
 void Character::drawSword() {
+    if (!getAlive()) { return;}
     Vector2 origin{};
     Vector2 offsetSword{};
     float rotation {};
     if (rightLeft > 0.0f) {
         origin = {0.0f, static_cast<float>(weapon.height) * scale};
         offsetSword = {40.0f, 50.0f}; // trial and error
-        rotation = 35.0f;
+        rotation = attacking()? 35.0f : 0.0f;
         weaponCollisionRect = {
             getScreenPos().x + offsetSword.x,
             getScreenPos().y + offsetSword.y - static_cast<float>(weapon.height) * scale,
@@ -61,7 +68,7 @@ void Character::drawSword() {
     else {
         origin = {static_cast<float>(weapon.width) * scale, static_cast<float>(weapon.height) * scale};
         offsetSword = {25.0f, 50.0f}; // trial and error
-        rotation = -35.0f;
+        rotation = attacking()? -35.0f : 0.0f;;
         weaponCollisionRect = {
             getScreenPos().x + offsetSword.x - static_cast<float>(weapon.width) * scale,
             getScreenPos().y + offsetSword.y - static_cast<float>(weapon.height) * scale,

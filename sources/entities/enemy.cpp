@@ -27,11 +27,12 @@ Enemy::~Enemy() {
 
 
 void Enemy::tick(const float deltaTime) {
+    if (!getAlive()) { return;}
     // get toTarget i.e. knight's location Target = Knight - Enemy
     velocity = Vector2Subtract(target->getScreenPos(), getScreenPos());
 
     // call base class function
-    //BaseCharacter::tick(deltaTime); //disabled while testing character
+    BaseCharacter::tick(deltaTime); //disabled while testing character
 
 
 

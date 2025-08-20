@@ -26,6 +26,10 @@ class BaseCharacter {
 
     virtual Vector2 getScreenPos() = 0; // it makes BaseCharacter an Abstract Class; i.e. no instances.
 
+    bool getAlive() { return alive;}
+
+    void setAlive(bool isAlive) { alive = isAlive;}
+
 protected:
     Texture2D idle {};
 
@@ -59,6 +63,10 @@ protected:
     Vector2 worldPosLastFrame {};
 
     Vector2 velocity {};
+
+private:
+
+    bool alive{ true };
 
 };
 

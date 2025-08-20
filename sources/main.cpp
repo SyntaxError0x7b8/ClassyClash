@@ -84,6 +84,11 @@ int main() {
             }
         }
 
+        // check for attack collisions
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            goblin.setAlive(!CheckCollisionRecs(goblin.getCollisionRectangle(), knight.getWeaponCollisionRect()));
+        }
+
         /***********************
          * DRAWING SECTION
          * *********************/

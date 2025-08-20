@@ -21,6 +21,12 @@ public:
 
     void drawSword();
 
+    [[nodiscard]] bool attacking() const { return attack;}
+
+    void setAttack(const bool attackAdversary) {attack = attackAdversary;}
+
+    [[nodiscard]] Rectangle getWeaponCollisionRect() { return weaponCollisionRect;}
+
 private:
     int winWidth {};
 
@@ -29,6 +35,8 @@ private:
     Texture2D weapon{LoadTexture("../assets/characters/weapon_sword.png")};
 
     Rectangle weaponCollisionRect{};
+
+    bool attack {};
 };
 
 

@@ -27,6 +27,7 @@ Rectangle BaseCharacter::getCollisionRectangle() {
 }
 
 void BaseCharacter::draw() {
+    if (!getAlive()) { return;}
     const Rectangle source {
         (static_cast<float>(frame) * width),
         0.0f,
@@ -43,6 +44,7 @@ void BaseCharacter::draw() {
 }
 
 void BaseCharacter::tick(const float deltaTime) {
+    if (!getAlive()) { return;} // it should never be true as condition check included in overridden function
     // enable undo movement
     worldPosLastFrame = worldPos;
 
