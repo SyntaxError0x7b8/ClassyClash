@@ -29,6 +29,8 @@ private:
 
     float damagePerSecond {10.0f};
 
+    float radius {30.0f}; // minimum distance allowed to target
+
 };
 
 

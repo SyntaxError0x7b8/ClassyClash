@@ -40,12 +40,16 @@ int main() {
         Prop{Vector2{400.0f, 500.0f}, LoadTexture("../assets/nature_tileset/Log.png")}
     };
 
-    // enemy
+    // enemies
     Enemy goblin({300.0f, 300.0f},
         LoadTexture("../assets/characters/goblin_idle_spritesheet.png"),
         LoadTexture("../assets/characters/goblin_run_spritesheet.png"));
 
+    Enemy slime({400.0f, 600.0f},
+    LoadTexture("../assets/characters/slime_idle_spritesheet.png"),
+    LoadTexture("../assets/characters/slime_run_spritesheet.png"));
 
+    Enemy enemies[2] {goblin, slime};
 
 
     SetTargetFPS(60);
@@ -62,10 +66,14 @@ int main() {
         /************************
          * UPDATE SECTION
          * **********************/
-        goblin.setTarget(&knight);
+        for (auto &enemy : enemies) {
+            enemy.setTarget(&knight);
+            enemy.tick(dT);
+        }
+        //goblin.setTarget(&knight);
 
         knight.tick(dT);
-        goblin.tick(dT);
+        //goblin.tick(dT);
 
         // check map bounds
         if (knight.getWorldPos().x < 0.0f ||
@@ -80,15 +88,21 @@ int main() {
             if (CheckCollisionRecs(knight.getCollisionRectangle(),prop.getCollisionRectangle(knight.getWorldPos()))) {
                 knight.undoMovement();
             }
-            if (CheckCollisionRecs(goblin.getCollisionRectangle(),prop.getCollisionRectangle(goblin.getWorldPos()))) {
-                goblin.undoMovement();
+            for (auto &enemy : enemies) {
+                if (CheckCollisionRecs(enemy.getCollisionRectangle(),prop.getCollisionRectangle(enemy.getWorldPos()))) {
+                    enemy.undoMovement();
+                }
             }
+
         }
 
         // check for attack collisions
-        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-            goblin.setAlive(!CheckCollisionRecs(goblin.getCollisionRectangle(), knight.getWeaponCollisionRect()));
+        for ( auto &enemy : enemies) {
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                enemy.setAlive(!CheckCollisionRecs(enemy.getCollisionRectangle(), knight.getWeaponCollisionRect()));
+            }
         }
+
 
         /***********************
          * DRAWING SECTION
@@ -125,7 +139,10 @@ int main() {
         knight.draw();
         knight.drawSword();
 
-        goblin.draw();
+        for (auto &enemy : enemies) {
+            enemy.draw();
+        }
+
 
 
 
