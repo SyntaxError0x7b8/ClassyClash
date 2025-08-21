@@ -5,7 +5,7 @@
 #ifndef CLASSYCLASH_ENEMY_H
 #define CLASSYCLASH_ENEMY_H
 
-#include "baseCharacter.h"
+#include "character.h"
 
 
 class Enemy : public BaseCharacter {
@@ -18,14 +18,16 @@ public:
 
     void tick(float deltaTime) override;
 
-    void setTarget(BaseCharacter* knightTarget) { target = knightTarget;}
+    void setTarget(Character* knightTarget) { target = knightTarget;}
 
     [[nodiscard]] Vector2 getScreenPos() override;
 
 
 private:
 
-    BaseCharacter *target{};
+    Character *target{};
+
+    float damagePerSecond {10.0f};
 
 };
 

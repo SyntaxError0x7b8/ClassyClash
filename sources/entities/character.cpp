@@ -84,10 +84,18 @@ void Character::drawSword() {
 
     // debug weapon collision rectangle
     DrawRectangleLines(
-                    weaponCollisionRect.x,
-                    weaponCollisionRect.y,
-                    weaponCollisionRect.width,
-                    weaponCollisionRect.height
+                    static_cast<int>(weaponCollisionRect.x),
+                    static_cast<int>(weaponCollisionRect.y),
+                    static_cast<int>(weaponCollisionRect.width),
+                    static_cast<int>(weaponCollisionRect.height)
                     , RED);
+}
+
+void Character::takeDamage(const float damage) {
+    // reduce health
+    health -= damage;
+    if (health <= 0.0f) {
+        setAlive(false);
+    }
 }
 

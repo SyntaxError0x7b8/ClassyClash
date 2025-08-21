@@ -25,7 +25,11 @@ public:
 
     void setAttack(const bool attackAdversary) {attack = attackAdversary;}
 
-    [[nodiscard]] Rectangle getWeaponCollisionRect() { return weaponCollisionRect;}
+    [[nodiscard]] Rectangle getWeaponCollisionRect() const { return weaponCollisionRect;}
+
+    [[nodiscard]] float getHealth() const { return health; }
+
+    void takeDamage(float damage);
 
 private:
     int winWidth {};
@@ -37,6 +41,8 @@ private:
     Rectangle weaponCollisionRect{};
 
     bool attack {};
+
+    float health {100.0f};
 };
 
 
