@@ -49,7 +49,7 @@ int main() {
     LoadTexture("../assets/characters/slime_idle_spritesheet.png"),
     LoadTexture("../assets/characters/slime_run_spritesheet.png"));
 
-    Enemy enemies[2] {goblin, slime};
+    Enemy *enemies[] {&goblin, &slime};
 
 
     SetTargetFPS(60);
@@ -66,9 +66,9 @@ int main() {
         /************************
          * UPDATE SECTION
          * **********************/
-        for (auto &enemy : enemies) {
-            enemy.setTarget(&knight);
-            enemy.tick(dT);
+        for (auto enemy : enemies) {
+            enemy->setTarget(&knight);
+            enemy->tick(dT);
         }
         //goblin.setTarget(&knight);
 
@@ -88,18 +88,18 @@ int main() {
             if (CheckCollisionRecs(knight.getCollisionRectangle(),prop.getCollisionRectangle(knight.getWorldPos()))) {
                 knight.undoMovement();
             }
-            for (auto &enemy : enemies) {
-                if (CheckCollisionRecs(enemy.getCollisionRectangle(),prop.getCollisionRectangle(enemy.getWorldPos()))) {
-                    enemy.undoMovement();
+            for (auto enemy : enemies) {
+                if (CheckCollisionRecs(enemy->getCollisionRectangle(),prop.getCollisionRectangle(enemy->getWorldPos()))) {
+                    enemy->undoMovement();
                 }
             }
 
         }
 
         // check for attack collisions
-        for ( auto &enemy : enemies) {
+        for ( auto enemy : enemies) {
             if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-                enemy.setAlive(!CheckCollisionRecs(enemy.getCollisionRectangle(), knight.getWeaponCollisionRect()));
+                enemy->setAlive(!CheckCollisionRecs(enemy->getCollisionRectangle(), knight.getWeaponCollisionRect()));
             }
         }
 
@@ -139,8 +139,8 @@ int main() {
         knight.draw();
         knight.drawSword();
 
-        for (auto &enemy : enemies) {
-            enemy.draw();
+        for (auto enemy : enemies) {
+            enemy->draw();
         }
 
 
