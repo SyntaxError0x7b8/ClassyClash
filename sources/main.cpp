@@ -9,9 +9,10 @@
 
 
 #include <iostream>
+#include <string>
 
-#include <raylib.h>
-#include <raymath.h>
+#include "raylib.h"
+#include "raymath.h"
 
 #include "character.h"
 #include "prop.h"
@@ -104,6 +105,23 @@ int main() {
             prop.render(knight.getWorldPos());
         }
 
+        // draw knight's health value
+        if ( !knight.getAlive()) {
+            // character is not alive: Game Over!
+            DrawText("Game Over!", 55.0f, 45.0f, 40, RED);
+            EndDrawing(); // no need to draw anything else
+            continue; // re-start the look but it will always end here unless we somehow enable re-start the game
+        }
+        else {
+            // character alive and kicking
+            std::string healthDisplay = "Health: ";
+            int intHealth = static_cast<int>(std::round(knight.getHealth())); // I prefer health to be an integer
+            std::string knightHealth = std::to_string(intHealth);
+            healthDisplay.append(knightHealth, 0, 3); // only 3 characters. Handy if use of float (change to 4 or 5)
+            DrawText(healthDisplay.c_str(), 55.0f, 45.0f, 40, RED);
+        }
+
+        // draw knight and enemies
         knight.draw();
         knight.drawSword();
 
