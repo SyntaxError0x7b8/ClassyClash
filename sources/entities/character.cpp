@@ -83,12 +83,12 @@ void Character::drawSword() {
     DrawTexturePro(weapon, source, dest, origin,rotation, WHITE);
 
     // debug weapon collision rectangle
-    DrawRectangleLines(
+    /*DrawRectangleLines(
                     static_cast<int>(weaponCollisionRect.x),
                     static_cast<int>(weaponCollisionRect.y),
                     static_cast<int>(weaponCollisionRect.width),
                     static_cast<int>(weaponCollisionRect.height)
-                    , RED);
+                    , RED);*/
 }
 
 void Character::takeDamage(const float damage) {

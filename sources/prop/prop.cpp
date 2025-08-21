@@ -17,6 +17,16 @@ Prop::~Prop() {
 void Prop::render(const Vector2 knightMapPos) const {
     const Vector2 screenPos = Vector2Subtract(worldPos, knightMapPos);
     DrawTextureEx(texture, screenPos, 0.0f, scale, WHITE);
+
+    // debug prop collision rectangle
+    /*DrawRectangleLines(
+                    static_cast<int>(screenPos.x) + 5,
+                    static_cast<int>(screenPos.y) + 5,
+                    static_cast<int>(texture.width) * static_cast<int>(scale) - 5,
+                    static_cast<int>(texture.height) * static_cast<int>(scale) - 5
+                    , RED);
+                    */
+
 }
 
 Rectangle Prop::getCollisionRectangle(const Vector2 knightMapPos) const {

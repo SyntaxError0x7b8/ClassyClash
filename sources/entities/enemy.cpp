@@ -28,17 +28,18 @@ Enemy::~Enemy() {
 
 void Enemy::tick(const float deltaTime) {
     if (!getAlive()) { return;}
+
     // get toTarget i.e. knight's location Target = Knight - Enemy
     if ( CheckCollisionRecs(target->getCollisionRectangle(),this->getCollisionRectangle())) {
         // enemy and knight already overlap
         velocity = {0.0f, 0.0f}; // stop moving once they collide
     }
     else {
-        velocity = Vector2Subtract(target->getScreenPos(), getScreenPos()); // move towards the knight
+        velocity = Vector2Subtract(target->getScreenPos(), this->getScreenPos()); // move towards the knight
     }
 
     // call base class function
-    BaseCharacter::tick(deltaTime); //disabled while testing character
+    BaseCharacter::tick(deltaTime);
 
     // cause damage
     if ( CheckCollisionRecs(target->getCollisionRectangle(),this->getCollisionRectangle())) {

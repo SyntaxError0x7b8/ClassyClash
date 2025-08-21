@@ -44,7 +44,7 @@ void BaseCharacter::draw() {
 }
 
 void BaseCharacter::tick(const float deltaTime) {
-    if (!getAlive()) { return;} // it should never be true as condition check included in overridden function
+    if (!getAlive()) { return;}
     // enable undo movement
     worldPosLastFrame = worldPos;
 
